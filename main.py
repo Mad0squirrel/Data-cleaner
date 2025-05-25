@@ -1,10 +1,12 @@
 import re
 
-def fix_name(name):
-    match = re.fullmatch(r"([А-ЯЁа-яё]+)\s?([А-ЯЁа-яё]+)", name.strip())
+def fix_name(name: str) -> str:
+    match = re.match(r'^([А-ЯЁ][а-яё]+)([А-ЯЁ][а-яё]+)$', name)
     if match:
-        return f"{match.group(1).capitalize()} {match.group(2).capitalize()}"
-    return ""
+        return f"{match.group(1)} {match.group(2)}"
+    if re.match(r'^[А-ЯЁ][а-яё]+\s[А-ЯЁ][а-яё]+$', name):
+        return name
+    return ''
 
 def fix_age(age):
     try:
