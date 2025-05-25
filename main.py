@@ -15,6 +15,12 @@ def fix_age(age):
         pass
     return ""
 
+def fix_email(email):
+    email = email.strip()
+    if re.fullmatch(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", email):
+        return email
+    return ""
+
 with open("input.txt", "r", encoding="utf-8") as fin, open("output.txt", "w", encoding="utf-8") as fout:
     for line in fin:
         fout.write(line)
