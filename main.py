@@ -6,6 +6,15 @@ def fix_name(name):
         return f"{match.group(1).capitalize()} {match.group(2).capitalize()}"
     return ""
 
+def fix_age(age):
+    try:
+        age_int = int(re.sub(r"[^\d]", "", age))
+        if 0 < age_int < 120:
+            return str(age_int)
+    except:
+        pass
+    return ""
+
 with open("input.txt", "r", encoding="utf-8") as fin, open("output.txt", "w", encoding="utf-8") as fout:
     for line in fin:
         fout.write(line)
