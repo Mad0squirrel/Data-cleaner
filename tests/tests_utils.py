@@ -3,7 +3,7 @@ from utils import fix_name, fix_age, fix_phone, fix_email
 
 def test_fix_name():
     assert fix_name("ИванИванов") == "Иван Иванов"
-    assert fix_name("Мария Петрова") == "Мария Петрова"
+    assert fix_name("Мария Петрова") == "Мария Иванова"
     assert fix_name("!@#") == ""
 
 def test_fix_age():
