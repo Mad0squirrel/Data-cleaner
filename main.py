@@ -1,47 +1,15 @@
-import re
+from utils import fix_name, fix_age, fix_phone, fix_email
 
-def fix_name(name: str) -> str:
-    match = re.match(r'^([А-ЯЁ][а-яё]+)([А-ЯЁ][а-яё]+)$', name)
-    if match:
-        return f"{match.group(1)} {match.group(2)}"
-    if re.match(r'^[А-ЯЁ][а-яё]+\s[А-ЯЁ][а-яё]+$', name):
-        return name
-    return ''
-
-def fix_age(age):
-    try:
-        age_int = int(re.sub(r"[^\d]", "", age))
-        if 0 < age_int < 120:
-            return str(age_int)
-    except:
-        pass
-    return ""
-
-def fix_phone(phone):
-    digits = re.sub(r"\D", "", phone)
-    if len(digits) == 11 and digits.startswith("8"):
-        digits = "7" + digits[1:]
-    if len(digits) == 11 and digits.startswith("7"):
-        return f"+7 ({digits[1:4]}) {digits[4:7]}-{digits[7:9]}-{digits[9:]}"
-    return ""
-
-def fix_email(email):
-    email = email.strip()
-    if re.fullmatch(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", email):
-        return email
-    return ""
-
-with open("input.txt", "r", encoding="utf-8") as fin, open("output.txt", "w", encoding="utf-8") as fout:
+with open('input.txt', 'r', encoding='utf-8') as fin, open('output.txt', 'w', encoding='utf-8') as fout:
     for line in fin:
-        fields = line.strip().split("|")
-        if len(fields) != 4:
-            fout.write("||| |\n")
+        parts = line.strip().split('|')
+        if len(parts) != 4:
             continue
-        name, age, phone, email = fields
-        fixed_line = "|".join([
+        name, age, phone, email = parts
+        fixed = [
             fix_name(name),
             fix_age(age),
             fix_phone(phone),
-            fix_email(email)
-        ])
-        fout.write(fixed_line + "\n")
+            fix_email(email),
+        ]
+        fout.write('|'.join(fixed) + '\n')
